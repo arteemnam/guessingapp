@@ -1,19 +1,22 @@
-from random import random, seed
-from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.floatlayout import FloatLayout
+import random
 
-class GuessingGame(App):
+class GuessingGame():
     def __init__(self, difficulty):
         self.guesses = 0
         self.min = 0
 
         if difficulty == "Easy":
-            self.number = 69
             self.max = 100
-        elif difficulty == "Hard":
-            self.number = 420
+            self.number = random.randrange(self.max)
+        elif difficulty =="Medium":
             self.max = 1000
+            self.number = random.randrange(self.max)
+        elif difficulty == "Hard":
+            self.max = 10000
+            self.number = random.randrange(self.max)
+        elif difficulty == "Extra Hard":
+            self.max = 100000
+            self.number = random.randrange(self.max)
 
     def guess_number(self):
         guess = input(f"Please guess a number {self.min} - {self.max}: ")
@@ -46,11 +49,4 @@ class GuessingGame(App):
 
         print(f"You guessed it in {self.guesses} guesses.")
 
-kv = Builder.load_file("guessing.kv")
-
-class GuessingApp(App):
-    def build(self):
-        return FloatLayout()
-
-if __name__ == "__main__":
-    GuessingApp().run()
+GuessingGame("Easy").play()
